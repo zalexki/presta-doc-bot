@@ -1,0 +1,20 @@
+
+CRON every day at 03AM -> call getNewCommitsCommand
+
+- Entity
+-- MergeCommit (id, createdAt, updatedAt, committedAt, idMergeCommit, authorName, commitMessage, idPullRequest, categories)
+-- Category
+
+- Services
+-- Factory
+--- GuzzleFactory
+--- GitlabGuzzleFactory
+
+-- Importer
+--- MergeCommitImporter
+
+-- Command
+--- getNewCommitsCommand ...
+
+-- Controller
+--- Homepage -> view list last merge commit (last 50...), pagination or load more ...
