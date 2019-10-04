@@ -23,6 +23,10 @@ docker-build: build-composer
 build-composer:
 	docker-compose run --rm app sh -c "composer install"
 
+build-database:
+	docker-compose run --rm app sh -c "bin/console doctrine:database:create"
+	docker-compose run --rm app sh -c "bin/console doctrine:schema:update -f"
+
 # target: tests                   	- Launch the test suite front and back
 tests: test-back
 

@@ -8,13 +8,13 @@ CRON every day at 03AM -> call getNewCommitsCommand
 - Services
 -- Factory
 --- GuzzleFactory
---- GitlabGuzzleFactory
+--- GithubGuzzleFactory 
 
 -- Importer
---- MergeCommitImporter
+--- MergeCommitImporter (transform a mergecommit from github to our entity mergecommit)
 
 -- Command
---- getNewCommitsCommand ...
+--- getNewCommitsCommand (list commits from github api and add the new ones to the DB )
 
 -- Controller
 --- Homepage -> view list last merge commit (last 50...), pagination or load more ...

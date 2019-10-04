@@ -11,6 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class MergeCommit
 {
     use TimestampableEntity;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
