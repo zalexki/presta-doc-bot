@@ -13,7 +13,7 @@ class HomepageController extends AbstractController
      */
     public function index()
     {
-        $importer = new MergeCommitImporter();
+        $importer = new MergeCommitImporter($this->getDoctrine()->getManager());
         return $this->json($importer->import());
     }
 }

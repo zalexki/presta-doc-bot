@@ -8,17 +8,18 @@ use Doctrine\ORM\EntityManager;
 
 class MergeCommitConverter
 {
+    protected $em;
 
-    public function __construct()
+    public function __construct(EntityManager $entityManager)
     {
-        
+        $this->em = $entityManager;
     }
 
     public function getDataFromGithub(array $data) : Array
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->em;
         try {
-            foreach ($responseGithub as $key => $value) {
+            foreach ($data as $key => $value) {
                 $merge = new MergeCommit();
                 $user = new User();
                 $user->setName($value['commit']['author']['name']);
