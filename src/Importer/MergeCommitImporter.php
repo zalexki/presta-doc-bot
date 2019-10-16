@@ -19,7 +19,7 @@ class MergeCommitImporter
         $this->helper = $helper;
     }
 
-    public function import()
+    public function import() : Array
     {
         $githubResponse = $this->helper->callGithub();
 
@@ -28,5 +28,6 @@ class MergeCommitImporter
             $this->entity->persist($mergeCommit);
         }
         $this->entity->flush();
+        return ['status' => 'success', 'code' => 200];
     }
 }

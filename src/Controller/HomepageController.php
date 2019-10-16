@@ -2,17 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\MergeCommit;
 use App\Importer\MergeCommitImporter;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\MergeCommitRepository;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class HomepageController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/show", name="index")
      */
-    public function index(MergeCommitImporter $importer)
+    public function showPR(MergeCommitImporter $importer, SerializerInterface $serializer)
     {
-        return $this->json($importer->import());
+        $commits = $this->getDoctrine()->getRepository(MergeCommit::class)->findAll();
+        return $this->render('base.html.twig', ['commits' => array_slice($commits,0,50)]);
     }
 }

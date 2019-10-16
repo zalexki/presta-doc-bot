@@ -41,6 +41,16 @@ class MergeCommit
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $commitedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $urlPullRequest;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +103,30 @@ class MergeCommit
     public function setUsers(?User $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getCommitedAt(): ?\DateTimeInterface
+    {
+        return $this->commitedAt;
+    }
+
+    public function setCommitedAt(\DateTimeInterface $commitedAt): self
+    {
+        $this->commitedAt = $commitedAt;
+
+        return $this;
+    }
+
+    public function getUrlPullRequest(): ?string
+    {
+        return $this->urlPullRequest;
+    }
+
+    public function setUrlPullRequest(string $urlPullRequest): self
+    {
+        $this->urlPullRequest = $urlPullRequest;
 
         return $this;
     }

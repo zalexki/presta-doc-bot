@@ -2,8 +2,8 @@
 
 namespace App\Converter;
 
-use App\Entity\MergeCommit;
 use App\Entity\User;
+use App\Entity\MergeCommit;
 use Doctrine\ORM\EntityManagerInterface;
 
 class MergeCommitConverter
@@ -13,32 +13,14 @@ class MergeCommitConverter
     {
         $merge = new MergeCommit();
         $user = new User();
-        $user->setName($data['commit']['author']['name']);
-        $user->setEmail($data['commit']['author']['email']);
-        if (empty($data['author']['login'])) {
-            $user->setPseudo("undefined");
-        } else {
-            $user->setPseudo($data['author']['login']);
-        }
-
-        if (empty($data['author']['login'])) {
-            $user->setAvatar('undefined');
-        } else {
-            $user->setAvatar($data['author']['avatar_url']);
-        }
-
+        $user->setName($data['user']['login']);
+        $user->setAvatar($data['user']['avatar_url']);
         $merge->setUsers($user);
-        $merge->setCommitMessage($data['commit']['message']);
-        $merge->setIdMergeCommit($data['sha']);
-        if (strstr($data['commit']['message'],'Merge pull request') === false) {
-            $merge->setIdPullRequest(0);
-        } else {
-            preg_match_all('/\#\d+/m', $data['commit']['message'], $matches, PREG_SET_ORDER, 0);
-            foreach ($matches as $key) {
-                $idPull = substr($key[0],1,strlen($key[0]));
-                $merge->setIdPullRequest((int)$idPull);
-            }
-        }
+        $merge->setCommitMessage($data['title']);
+        $merge->setIdMergeCommit($data['id']);
+        $merge->setIdPullRequest($data['number']);
+        $merge->setUrlPullRequest($data['html_url']);
+        $merge->setCommitedAt(new \DateTime('@'.strtotime($data['created_at'])));
 
         return $merge;
     }
