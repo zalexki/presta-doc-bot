@@ -11,6 +11,6 @@ class githubHelper
     public function callGithub() : Array
     {
         $githubClient = new Client();
-        return $githubClient->api('pr')->all('Prestashop', 'Prestashop', array('sha' => 'master'));
+        return $githubClient->api('pulls')->all('Prestashop', 'Prestashop', array('sha' => 'master'));
     }
 }
