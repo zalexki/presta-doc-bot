@@ -6,6 +6,8 @@ use Github\Client;
 
 class githubHelper
 {
+    // TODO: use pull request API
+    // https://github.com/KnpLabs/php-github-api/blob/master/doc/pull_requests.md
     public function callGithub() : Array
     {
         $githubClient = new Client();
