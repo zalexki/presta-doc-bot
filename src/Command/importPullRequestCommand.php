@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Importer\MergeCommitImporter;
 
-class MergeCommitCommand extends Command
+class importPullRequestCommand extends Command
 {
     protected static $defaultName = 'github:pullrequest';
     private $importer;
@@ -23,11 +23,7 @@ class MergeCommitCommand extends Command
 
     protected function configure()
     {
-        $this
-            ->setDescription('For get Pull request on PrestaShop repo')
-            ->addArgument('get', InputArgument::OPTIONAL)
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
+        $this->setDescription('For get Pull request on PrestaShop repo');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

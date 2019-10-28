@@ -27,7 +27,12 @@ class MergeCommitImporter
             $mergeCommit = $this->converter->convert($key);
             $this->entity->persist($mergeCommit);
         }
+        
         $this->entity->flush();
-        return ['status' => 'success', 'code' => 200];
+
+        return [
+            'status' => 'success', 
+            'code' => 200
+        ];
     }
 }

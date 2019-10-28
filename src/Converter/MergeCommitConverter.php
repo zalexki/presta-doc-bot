@@ -13,9 +13,11 @@ class MergeCommitConverter
     {
         $merge = new MergeCommit();
         $user = new User();
+
         $user->setName($data['user']['login']);
         $user->setAvatar($data['user']['avatar_url']);
         $merge->setUsers($user);
+        
         $merge->setCommitMessage($data['title']);
         $merge->setIdMergeCommit($data['id']);
         $merge->setIdPullRequest($data['number']);
