@@ -27,12 +27,11 @@ build-database:
 	docker-compose run --rm app sh -c "bin/console doctrine:database:create"
 	docker-compose run --rm app sh -c "bin/console doctrine:schema:update -f"
 
-# target: tests                   	- Launch the test suite front and back
-tests: test-back
 
-test-back:
-	docker-compose run --rm app sh -c "vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --diff-format udiff"
-	docker-compose run --rm app sh -c "vendor/bin/phpstan analyse --configuration=/var/www/html/tests/phpstan/phpstan.neon"
+# target: lint                   	- Lint code for PSR12
+lint: linter
+linter:
+	docker-compose exec app sh -c "vendor/bin/phpcs -n --report=diff --standard=PSR12 src/ && vendor/bin/phpcbf --standard=PSR12 src/"
 
 # target: bash-app                      - Connect to the app docker container
 ba: bash-app

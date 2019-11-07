@@ -4,15 +4,16 @@ namespace App\Controller;
 
 use App\Entity\MergeCommit;
 use App\Importer\MergeCommitImporter;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\MergeCommitRepository;
 
 class HomepageController extends AbstractController
 {
     /**
-     * @Route("/show", name="index")
+     * @Route("/", name="index")
+     * @param MergeCommitImporter $importer
+     * @return Response
      */
     public function showPR(MergeCommitImporter $importer)
     {
@@ -23,7 +24,7 @@ class HomepageController extends AbstractController
             ;
 
         return $this->render('base.html.twig', [
-            'commits' => array_slice($commits,0,50)
+            'commits' => array_slice($commits, 0, 50),
         ]);
     }
 }

@@ -4,11 +4,12 @@ namespace App\Helper;
 
 use Github\Client;
 
-class githubHelper
+class GithubHelper
 {
-    // TODO: use pull request API
-    // https://github.com/KnpLabs/php-github-api/blob/master/doc/pull_requests.md
-    public function callGithub() : Array
+    /**
+     * @return Array
+     */
+    public function callGithub(): array
     {
         $githubClient = new Client();
         return $githubClient->api('pulls')->all('Prestashop', 'Prestashop', array('sha' => 'master'));

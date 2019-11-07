@@ -22,18 +22,18 @@ class MergeCommitRepository extends ServiceEntityRepository
     // /**
     //  * @return MergeCommit[] Returns an array of MergeCommit objects
     //  */
-    public static function findByExampleField()
-    {
-        return $this->createQueryBuilder('m')
-            ->select('*')
-            // ->andWhere('m.exampleField = :val')
-            // ->setParameter('val', $value)
-            // ->orderBy('m.id', 'ASC')
-            // ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    // public static function findByExampleField()
+    // {
+    //     return $this->createQueryBuilder('m')
+    //         ->select('*')
+    //         // ->andWhere('m.exampleField = :val')
+    //         // ->setParameter('val', $value)
+    //         // ->orderBy('m.id', 'ASC')
+    //         // ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
     /*
     public function findOneBySomeField($value): ?MergeCommit
