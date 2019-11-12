@@ -8,12 +8,11 @@ A single page for show the Pull request merged for PrestaShop documentation.
 
 You can use the Makefile command for build container and execute some command.
 
-`target: docker-up|du - Start docker containers`<br>
-`target: docker-down|db - Stop docker containers`<br>
-`target: docker-build|db - Setup PHP & (node)JS dependencies`<br>
-`target: lint - Lint code for PSR12`<br>
-`target: bash-app - Connect to the app docker container`<br>
-`target: bash-node - Connect to the node docker container`<br>
+`make du: docker-up|du - Start docker containers`<br>
+`make dd: docker-down|dd - Stop docker containers`<br>
+`make db: docker-build|db - Setup PHP dependencies`<br>
+`make lint: lint - Lint code for PSR12`<br>
+`make ba: bash-app - Connect to the app docker container`<br>
 
 ## Project Specifics
 
