@@ -31,7 +31,8 @@ build-database:
 # target: lint                   	- Lint code for PSR12
 lint: linter
 linter:
-	docker-compose exec app sh -c "vendor/bin/phpcs -n --report=diff --standard=PSR12 src/ && vendor/bin/phpcbf --standard=PSR12 src/"
+	docker-compose exec app sh -c "vendor/bin/phpcs -n --report=diff --standard=PSR12 src/"
+	docker-compose exec app sh -c "vendor/bin/phpcbf --standard=PSR12 src/"
 
 # target: bash-app                      - Connect to the app docker container
 ba: bash-app

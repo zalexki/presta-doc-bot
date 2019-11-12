@@ -10,7 +10,9 @@ class MergeCommitConverter
 {
     /**
      * @param array $data
+     *
      * @return MergeCommit
+     *
      * @throws Exception
      */
     public function convert(array $data): MergeCommit
@@ -26,7 +28,7 @@ class MergeCommitConverter
         $merge->setIdMergeCommit($data['id']);
         $merge->setIdPullRequest($data['number']);
         $merge->setUrlPullRequest($data['html_url']);
-        $merge->setCommitedAt(new \DateTime('@' . strtotime($data['created_at'])));
+        $merge->setCommitedAt(new \DateTime('@'.strtotime($data['created_at'])));
 
         return $merge;
     }

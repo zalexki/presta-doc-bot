@@ -22,6 +22,7 @@ class ImportPullRequestCommand extends Command
 
     /**
      * importPullRequestCommand constructor.
+     *
      * @param MergeCommitImporter $importer
      */
     public function __construct(MergeCommitImporter $importer)
@@ -32,14 +33,17 @@ class ImportPullRequestCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('For get Pull request on PrestaShop repo'
+        $this->setDescription(
+            'For get Pull request on PrestaShop repo'
         );
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int|void|null
+     *
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -7,11 +7,12 @@ use Github\Client;
 class GithubHelper
 {
     /**
-     * @return Array
+     * @return array
      */
     public function callGithub(): array
     {
         $githubClient = new Client();
-        return $githubClient->api('pulls')->all('Prestashop', 'Prestashop', array('sha' => 'master'));
+
+        return $githubClient->api('pulls')->all('Prestashop', 'Prestashop', ['sha' => 'master']);
     }
 }
