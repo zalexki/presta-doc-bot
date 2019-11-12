@@ -18,7 +18,9 @@ You can use the Makefile command for build container and execute some command.
 
 Before use the presta-doc-bot you need to change the github credentials in .env file. <br>
 `GITHUB_USERNAME=XXXX`
-`GITHUB_SECRET=XXXX`
+`GITHUB_SECRET=XXXX` <br>
+And you need to change de databases credentials in .env. <br>
+`DATABASE_URL=mysql://username:password@db:3306/databases`
 
 ## Stack
 
