@@ -11,12 +11,12 @@ du: docker-up
 docker-up:
 	docker-compose up -d --build
 
-# target: docker-down|db                - Stop docker containers
+# target: docker-down|dd                - Stop docker containers
 dd: docker-down
 docker-down:
 	docker-compose down
 
-# target: docker-build|db               - Setup PHP & (node)JS dependencies
+# target: docker-build|db               - Setup PHP dependencies
 db: docker-build
 docker-build: build-composer
 
@@ -34,12 +34,7 @@ linter:
 	docker-compose exec app sh -c "vendor/bin/phpcs -n --report=diff --standard=PSR12 src/"
 	docker-compose exec app sh -c "vendor/bin/phpcbf --standard=PSR12 src/"
 
-# target: bash-app                      - Connect to the app docker container
+# target: bash-app|ba                   - Connect to the app docker container
 ba: bash-app
 bash-app:
 	docker-compose exec app bash
-
-# target: bash-node                     - Connect to the node docker container
-bn : bash-node
-bash-node:
-	docker-compose run --rm node bash
