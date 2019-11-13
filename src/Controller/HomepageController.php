@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\MergeCommit;
+use App\Entity\PullRequest;
 use App\Importer\MergeCommitImporter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,18 +13,35 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="index")
      *
-     * @param MergeCommitImporter $importer
+     * @return Response
+     */
+    public function showPR()
+    {
+        $commits = $this
+            ->getDoctrine()
+            ->getRepository(PullRequest::class)
+            ->findAll();
+
+        return $this->render('homepage.html.twig', [
+            'commits' => array_slice($commits, 0, 50),
+        ]);
+    }
+
+    /**
+     * @Route("/debug", name="debug")
      *
      * @return Response
      */
-    public function showPR(MergeCommitImporter $importer)
+    public function debug(MergeCommitImporter $importer)
     {
+        $importer->importAllPullRequest();
+        
         $commits = $this
             ->getDoctrine()
             ->getRepository(MergeCommit::class)
             ->findAll();
 
-        return $this->render('base.html.twig', [
+        return $this->render('homepage.html.twig', [
             'commits' => array_slice($commits, 0, 50),
         ]);
     }

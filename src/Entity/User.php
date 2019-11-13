@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity
  */
 class User
 {
@@ -29,13 +28,13 @@ class User
     private $avatar;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MergeCommit", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="App\Entity\PullRequest", mappedBy="user")
      */
-    private $mergeCommits;
+    private $pullRequests;
 
     public function __construct()
     {
-        $this->mergeCommits = new ArrayCollection();
+        $this->pullRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,33 +66,14 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection|MergeCommit[]
-     */
-    public function getMergeCommits(): Collection
+    public function getPullRequests()
     {
-        return $this->mergeCommits;
+        return $this->pullRequests;
     }
 
-    public function addMergeCommit(MergeCommit $mergeCommit): self
+    public function setPullRequests($pullRequests)
     {
-        if (!$this->mergeCommits->contains($mergeCommit)) {
-            $this->mergeCommits[] = $mergeCommit;
-            $mergeCommit->setUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMergeCommit(MergeCommit $mergeCommit): self
-    {
-        if ($this->mergeCommits->contains($mergeCommit)) {
-            $this->mergeCommits->removeElement($mergeCommit);
-            // set the owning side to null (unless already changed)
-            if ($mergeCommit->getUsers() === $this) {
-                $mergeCommit->setUsers(null);
-            }
-        }
+        $this->pullRequests = $pullRequests;
 
         return $this;
     }

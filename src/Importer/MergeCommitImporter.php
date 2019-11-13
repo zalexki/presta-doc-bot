@@ -5,44 +5,46 @@ namespace App\Importer;
 use App\Helper\GithubHelper;
 use App\Converter\MergeCommitConverter;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 
 class MergeCommitImporter
 {
-
     /**
      * @var MergeCommitConverter
      */
     private $converter;
+
     /**
      * @var EntityManagerInterface
      */
     private $entity;
+
     /**
      * @var githubHelper
      */
-    private $helper;
+    private $githubHelper;
 
     /**
      * MergeCommitImporter constructor.
      * @param MergeCommitConverter $merge
      * @param EntityManagerInterface $entity
-     * @param githubHelper $helper
+     * @param githubHelper $githubHelper
      */
-    public function __construct(MergeCommitConverter $merge, EntityManagerInterface $entity, GithubHelper $helper)
-    {
+    public function __construct(
+        MergeCommitConverter $merge, 
+        EntityManagerInterface $entity, 
+        GithubHelper $githubHelper
+    ){
         $this->converter = $merge;
         $this->entity = $entity;
-        $this->helper = $helper;
+        $this->githubHelper = $githubHelper;
     }
 
     /**
      * @return array
-     * @throws Exception
      */
-    public function import(): array
+    public function importAllPullRequest(): array
     {
-        $githubResponse = $this->helper->callGithub();
+        $githubResponse = $this->githubHelper->getAllPullRequests();
 
         foreach ($githubResponse as $key) {
             $mergeCommit = $this->converter->convert($key);

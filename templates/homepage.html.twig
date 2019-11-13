@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}List merged pull request of prestashop docs{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-dark table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Created_at</th>
+                    <th scope="col">User</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commit in commits %}
+                    <tr>
+                        <td>
+                            <a href="{{commit.urlPullRequest}}">{{ commit.number }}</a>
+                        </td>
+                        <td>
+                            <a href="{{commit.urlPullRequest}}">{{ commit.title }}</a>
+                        </td>
+                        <td>
+                            {{ commit.prCreatedAt|date('Y-m-d H:i:s') }}
+                        </td>
+                        <td>
+                            <a href="http://github.com/{{commit.user.name}}">
+                                <img class="img-thumbnail" src="{{ commit.user.avatar }}" alt="{{ commit.user.name }}"/>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {# <button type="button" class="btn btn-primary">Load more</button> #}
+    </div>
+{% endblock %}

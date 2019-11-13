@@ -9,10 +9,13 @@ class GithubHelper
     /**
      * @return array
      */
-    public function callGithub(): array
+    public function getAllPullRequests(): array
     {
         $githubClient = new Client();
 
-        return $githubClient->api('pulls')->all('Prestashop', 'Prestashop', ['sha' => 'master']);
+        return $githubClient
+            ->api('pulls')
+            ->all('Prestashop', 'docs', ['sha' => 'master'])
+        ;
     }
 }

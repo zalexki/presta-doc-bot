@@ -3,32 +3,33 @@
 namespace App\Converter;
 
 use App\Entity\User;
-use App\Entity\MergeCommit;
-use Exception;
+use App\Entity\PullRequest;
 
 class MergeCommitConverter
 {
     /**
      * @param array $data
      *
-     * @return MergeCommit
-     *
-     * @throws Exception
+     * @return PullRequest
      */
-    public function convert(array $data): MergeCommit
+    public function convert(array $data): PullRequest
     {
-        $merge = new MergeCommit();
+        $merge = new PullRequest();
         $user = new User();
-
+ 
         $user->setName($data['user']['login']);
         $user->setAvatar($data['user']['avatar_url']);
-        $merge->setUsers($user);
+        $merge->setUser($user);
+        $merge->setState($data['state']);
 
-        $merge->setCommitMessage($data['title']);
-        $merge->setIdMergeCommit($data['id']);
-        $merge->setIdPullRequest($data['number']);
+        $merge->setTitle($data['title']);
+        $merge->setBody($data['body']);
+        $merge->setNumber($data['number']);
+        $merge->setIdGithub($data['id']);
+        $merge->setShaMergeCommit($data['merge_commit_sha']);
         $merge->setUrlPullRequest($data['html_url']);
-        $merge->setCommitedAt(new \DateTime('@'.strtotime($data['created_at'])));
+        $merge->setPrCreatedAt(new \DateTime('@'.strtotime($data['created_at'])));
+        $merge->setPrUpdatedAt(new \DateTime('@'.strtotime($data['updated_at'])));
 
         return $merge;
     }

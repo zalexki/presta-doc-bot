@@ -9,12 +9,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ImportPullRequestCommand extends Command
+class updatePullRequestsCommand extends Command
 {
     /**
      * @var string
      */
-    protected static $defaultName = 'github:pullrequest';
+    protected static $defaultName = 'app:import:update';
+
     /**
      * @var MergeCommitImporter
      */
@@ -33,9 +34,7 @@ class ImportPullRequestCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription(
-            'For get Pull request on PrestaShop repo'
-        );
+        $this->setDescription('Retrieve all the pull requests of PrestaShop Docs');
     }
 
     /**
@@ -50,7 +49,8 @@ class ImportPullRequestCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $import = $this->importer->import();
+        $import = $this->importer->importAllPullRequest();
+        
         if ($import['status'] = 'success') {
             $io->success('Pull request is successfully pushed into your databases!');
         } else {

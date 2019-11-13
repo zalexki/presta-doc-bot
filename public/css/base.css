@@ -1,0 +1,11 @@
+body { 
+    background-color: #454d55;
+}
+
+table img {
+    max-height: 100px;
+}
+
+table img.img-thumbnail {
+    border: none;
+}
