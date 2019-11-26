@@ -1,34 +1,30 @@
 {% extends "base.html.twig" %}
 
-{% block title %}List merged pull request of prestashop docs{% endblock %}
+{% block title %} List merged pull request of prestashop docs{% endblock %}
 
 {% block body %}
     <div class="container">
-        <table class="table table-dark table-hover">
-            <thead class="thead-dark">
+        <table class="table table-hover">
+            <thead class="thead">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Message</th>
-                    <th scope="col">Created_at</th>
-                    <th scope="col">User</th>
+                    <th scope="col">{{'homepage.Author'|trans}}</th>
+                    <th scope="col">{{'homepage.Message_ID'|trans}}</th>
+                    <th scope="col">{{'homepage.Created_at'|trans}}</th>
                 </tr>
             </thead>
             <tbody>
-                {% for commit in commits %}
+                {% for commit in pullRequests %}
                     <tr>
                         <td>
-                            <a href="{{commit.urlPullRequest}}">{{ commit.number }}</a>
+                            <a href="https://github.com/{{commit.user.name}}">
+                                <img class="img-thumbnail" src="{{ commit.user.avatar }}" alt="{{ commit.user.name }}"/>
+                            </a>
                         </td>
                         <td>
-                            <a href="{{commit.urlPullRequest}}">{{ commit.title }}</a>
+                            <a href="{{ commit.urlPullRequest }}">#{{ commit.number }} : {{ commit.title }}</a>
                         </td>
                         <td>
                             {{ commit.prCreatedAt|date('Y-m-d H:i:s') }}
-                        </td>
-                        <td>
-                            <a href="http://github.com/{{commit.user.name}}">
-                                <img class="img-thumbnail" src="{{ commit.user.avatar }}" alt="{{ commit.user.name }}"/>
-                            </a>
                         </td>
                     </tr>
                 {% endfor %}

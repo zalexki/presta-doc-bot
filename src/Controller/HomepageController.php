@@ -15,15 +15,15 @@ class HomepageController extends AbstractController
      *
      * @return Response
      */
-    public function showPR()
+    public function index()
     {
-        $commits = $this
+        $pullRequests = $this
             ->getDoctrine()
             ->getRepository(PullRequest::class)
-            ->findAll();
+            ->findBy(['state' => 'open']);
 
         return $this->render('homepage.html.twig', [
-            'commits' => array_slice($commits, 0, 50),
+            'pullRequests' => $pullRequests,
         ]);
     }
 
@@ -34,15 +34,6 @@ class HomepageController extends AbstractController
      */
     public function debug(MergeCommitImporter $importer)
     {
-        $importer->importAllPullRequest();
-        
-        $commits = $this
-            ->getDoctrine()
-            ->getRepository(MergeCommit::class)
-            ->findAll();
-
-        return $this->render('homepage.html.twig', [
-            'commits' => array_slice($commits, 0, 50),
-        ]);
+        die('p');
     }
 }

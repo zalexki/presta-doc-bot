@@ -1,11 +1,24 @@
 body { 
-    background-color: #454d55;
+    background-color: #FFFFFF;
+    color: #7A7A7A;
+}
+.navbar, .navbar a {
+    color: #7A7A7A;
+    text-align: right;
+}
+.navbar .active, .navbar a .active {
+    color: #4A4A4A;
 }
 
+table .table-hover tbody tr:hover {
+    background-color: #F7F7F7;
+}
 table img {
-    max-height: 100px;
+    max-height: 60px;
 }
-
 table img.img-thumbnail {
     border: none;
+}
+table a {    
+    color: #7A7A7A;
 }
