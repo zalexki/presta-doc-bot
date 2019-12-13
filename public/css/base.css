@@ -1,0 +1,40 @@
+body { 
+    background-color: #FFFFFF;
+    color: #7A7A7A;
+}
+.navbar, .navbar a {
+    color: #7A7A7A;
+    text-align: right;
+}
+.navbar .active, .navbar a .active {
+    color: #4A4A4A;
+}
+
+table .table-hover tbody tr:hover {
+    background-color: #F7F7F7;
+}
+table img {
+    max-height: 60px;
+}
+table img.img-thumbnail {
+    border: none;
+}
+table a {    
+    color: #7A7A7A;
+}
+h3 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+.navbar .active {
+    border-bottom: 4px solid #DF0067;
+}
+.navbar .nav-item {
+    margin-right: 5px;
+}
+.navbar .nav-item:hover {
+    border-bottom: 2px solid #DF0067;
+}
+.navbar .active.nav-item:hover {
+    border-bottom: 4px solid #DF0067;
+}

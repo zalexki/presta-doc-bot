@@ -2,54 +2,65 @@
 
 namespace App\Importer;
 
+use App\Entity\PullRequest;
 use App\Helper\GithubHelper;
 use App\Converter\MergeCommitConverter;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 
 class MergeCommitImporter
 {
-
     /**
      * @var MergeCommitConverter
      */
     private $converter;
+
     /**
      * @var EntityManagerInterface
      */
     private $entity;
+
     /**
      * @var githubHelper
      */
-    private $helper;
+    private $githubHelper;
 
     /**
      * MergeCommitImporter constructor.
      * @param MergeCommitConverter $merge
      * @param EntityManagerInterface $entity
-     * @param githubHelper $helper
+     * @param githubHelper $githubHelper
      */
-    public function __construct(MergeCommitConverter $merge, EntityManagerInterface $entity, GithubHelper $helper)
-    {
+    public function __construct(
+        MergeCommitConverter $merge, 
+        EntityManagerInterface $entityManager, 
+        GithubHelper $githubHelper
+    ){
         $this->converter = $merge;
-        $this->entity = $entity;
-        $this->helper = $helper;
+        $this->entityManager = $entityManager;
+        $this->githubHelper = $githubHelper;
     }
 
     /**
      * @return array
-     * @throws Exception
      */
-    public function import(): array
+    public function importAllPullRequest(): array
     {
-        $githubResponse = $this->helper->callGithub();
+        $githubResponse = $this->githubHelper->getAllPullRequests();
+        $prRepository = $this->entityManager->getRepository(PullRequest::class);
 
-        foreach ($githubResponse as $key) {
-            $mergeCommit = $this->converter->convert($key);
-            $this->entity->persist($mergeCommit);
+        foreach ($githubResponse as $githubPullRequest) {
+            $pullRequest = $prRepository->findOneBy(['idGithub' => $githubPullRequest['id']]);
+
+            if ($pullRequest instanceof PullRequest) {
+                $pullRequest = $this->converter->convert($githubPullRequest, $pullRequest);
+            } else {
+                $pullRequest = $this->converter->convert($githubPullRequest);
+            }
+
+            $this->entityManager->persist($pullRequest);
         }
 
-        $this->entity->flush();
+        $this->entityManager->flush();
 
         return [
             'status' => 'success',
