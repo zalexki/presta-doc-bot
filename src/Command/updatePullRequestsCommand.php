@@ -49,6 +49,8 @@ class updatePullRequestsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        // TODO: use another way to update 
+        // the import all should use github pagination to really get all results
         $import = $this->importer->importAllPullRequest();
         
         if ($import['status'] = 'success') {

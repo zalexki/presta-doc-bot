@@ -9,28 +9,33 @@ class MergeCommitConverter
 {
     /**
      * @param array $data
+     * @param PullRequest|null $pullRequest
      *
      * @return PullRequest
      */
-    public function convert(array $data): PullRequest
+    public function convert(array $data, PullRequest $pullRequest = null): PullRequest
     {
-        $merge = new PullRequest();
-        $user = new User();
- 
+        if ($pullRequest === null) {
+            $pullRequest = new PullRequest();
+            $user = new User();
+        } else {
+            $user = $pullRequest->getUser();
+        }
+        
         $user->setName($data['user']['login']);
         $user->setAvatar($data['user']['avatar_url']);
-        $merge->setUser($user);
-        $merge->setState($data['state']);
+        $pullRequest->setUser($user);
+        $pullRequest->setState($data['state']);
 
-        $merge->setTitle($data['title']);
-        $merge->setBody($data['body']);
-        $merge->setNumber($data['number']);
-        $merge->setIdGithub($data['id']);
-        $merge->setShaMergeCommit($data['merge_commit_sha']);
-        $merge->setUrlPullRequest($data['html_url']);
-        $merge->setPrCreatedAt(new \DateTime('@'.strtotime($data['created_at'])));
-        $merge->setPrUpdatedAt(new \DateTime('@'.strtotime($data['updated_at'])));
+        $pullRequest->setTitle($data['title']);
+        $pullRequest->setBody($data['body']);
+        $pullRequest->setNumber($data['number']);
+        $pullRequest->setIdGithub($data['id']);
+        $pullRequest->setShaMergeCommit($data['merge_commit_sha']);
+        $pullRequest->setUrlPullRequest($data['html_url']);
+        $pullRequest->setPrCreatedAt(new \DateTime('@'.strtotime($data['created_at'])));
+        $pullRequest->setPrUpdatedAt(new \DateTime('@'.strtotime($data['updated_at'])));
 
-        return $merge;
+        return $pullRequest;
     }
 }

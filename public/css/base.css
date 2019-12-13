@@ -22,3 +22,19 @@ table img.img-thumbnail {
 table a {    
     color: #7A7A7A;
 }
+h3 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+.navbar .active {
+    border-bottom: 4px solid #DF0067;
+}
+.navbar .nav-item {
+    margin-right: 5px;
+}
+.navbar .nav-item:hover {
+    border-bottom: 2px solid #DF0067;
+}
+.navbar .active.nav-item:hover {
+    border-bottom: 4px solid #DF0067;
+}

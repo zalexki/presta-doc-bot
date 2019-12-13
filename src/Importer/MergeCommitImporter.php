@@ -2,6 +2,7 @@
 
 namespace App\Importer;
 
+use App\Entity\PullRequest;
 use App\Helper\GithubHelper;
 use App\Converter\MergeCommitConverter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,11 +32,11 @@ class MergeCommitImporter
      */
     public function __construct(
         MergeCommitConverter $merge, 
-        EntityManagerInterface $entity, 
+        EntityManagerInterface $entityManager, 
         GithubHelper $githubHelper
     ){
         $this->converter = $merge;
-        $this->entity = $entity;
+        $this->entityManager = $entityManager;
         $this->githubHelper = $githubHelper;
     }
 
@@ -45,13 +46,21 @@ class MergeCommitImporter
     public function importAllPullRequest(): array
     {
         $githubResponse = $this->githubHelper->getAllPullRequests();
+        $prRepository = $this->entityManager->getRepository(PullRequest::class);
 
-        foreach ($githubResponse as $key) {
-            $mergeCommit = $this->converter->convert($key);
-            $this->entity->persist($mergeCommit);
+        foreach ($githubResponse as $githubPullRequest) {
+            $pullRequest = $prRepository->findOneBy(['idGithub' => $githubPullRequest['id']]);
+
+            if ($pullRequest instanceof PullRequest) {
+                $pullRequest = $this->converter->convert($githubPullRequest, $pullRequest);
+            } else {
+                $pullRequest = $this->converter->convert($githubPullRequest);
+            }
+
+            $this->entityManager->persist($pullRequest);
         }
 
-        $this->entity->flush();
+        $this->entityManager->flush();
 
         return [
             'status' => 'success',

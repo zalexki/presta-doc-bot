@@ -15,7 +15,24 @@ class HomepageController extends AbstractController
      *
      * @return Response
      */
-    public function index()
+    public function indexAction()
+    {
+        $pullRequests = $this
+            ->getDoctrine()
+            ->getRepository(PullRequest::class)
+            ->findBy(['state' => 'closed'], null, 30);
+
+        return $this->render('homepage.html.twig', [
+            'pullRequests' => $pullRequests,
+        ]);
+    }
+
+    /**
+     * @Route("/openedones", name="openedones")
+     *
+     * @return Response
+     */
+    public function openedOnesAction()
     {
         $pullRequests = $this
             ->getDoctrine()
@@ -34,6 +51,8 @@ class HomepageController extends AbstractController
      */
     public function debug(MergeCommitImporter $importer)
     {
+        $importer->importAllPullRequest();
+
         die('p');
     }
 }

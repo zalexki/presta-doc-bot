@@ -3,6 +3,6 @@ homepage:
     Message_ID: ID & Description
     Created_at: Created at
 navbar:
-    title: Prestashop Documentation Changelog
+    title: Presta Docs Pull Requests
     closed_pull_requests: Closed Pull Requests
     opened_pull_requests: Opened Pull Requests

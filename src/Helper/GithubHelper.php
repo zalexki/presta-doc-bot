@@ -15,7 +15,13 @@ class GithubHelper
 
         return $githubClient
             ->api('pulls')
-            ->all('Prestashop', 'docs', ['sha' => 'master'])
+            ->all('Prestashop', 'docs', [
+                'sha' => 'master', 
+                'state' => 'all',
+                'sort' => 'created',
+                'direction' => 'desc',
+                'per_page' => '100'
+            ])
         ;
     }
 }

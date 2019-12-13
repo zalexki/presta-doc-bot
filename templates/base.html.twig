@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <title>{% block title %}Base{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,20 +19,27 @@
     <body>
         {% block header %}
         <header class="container">
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="navbar-brand">
                     <img height="80px" src="{{ asset('images/prestashop-puffy.png') }}" alt="puffy mascot prestashop">
                     {{ 'navbar.title'|trans }}
                 </div>
-                <div class="navbar-right collapse navbar-collapse">
-                    <div class="navbar-nav">
-                        <a href="{{ path('index') }}" class="nav-item nav-link {% if app.request.get('_route') == 'index' %}active{% endif %}"> 
-                            {{ 'navbar.closed_pull_requests'|trans }}
-                        </a>
-                        <a href="{{ path('debug') }}" class="nav-item nav-link {% if app.request.get('_route') == 'debug' %}active{% endif %}">
-                            {{ 'navbar.opened_pull_requests'|trans }}
-                        </a>
-                    </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarToggler" class="navbar-right collapse navbar-collapse">
+                    <div class="navbar-nav d-flex flex-row-reverse">
+                        <div class="nav-item">
+                            <a href="{{ path('index') }}" class="nav-link {% if app.request.get('_route') == 'index' %}active{% endif %}"> 
+                                {{ 'navbar.closed_pull_requests'|trans }}
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="{{ path('openedones') }}" class="nav-link {% if app.request.get('_route') == 'openedones' %}active{% endif %}">
+                                {{ 'navbar.opened_pull_requests'|trans }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
