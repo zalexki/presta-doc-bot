@@ -20,7 +20,7 @@ class HomepageController extends AbstractController
         $pullRequests = $this
             ->getDoctrine()
             ->getRepository(PullRequest::class)
-            ->findBy(['state' => 'closed'], null, 30);
+            ->findBy(['state' => 'closed'], ['prCreatedAt' => 'DESC'], 30);
 
         return $this->render('homepage.html.twig', [
             'pullRequests' => $pullRequests,
@@ -37,22 +37,10 @@ class HomepageController extends AbstractController
         $pullRequests = $this
             ->getDoctrine()
             ->getRepository(PullRequest::class)
-            ->findBy(['state' => 'open']);
+            ->findBy(['state' => 'open'], ['prCreatedAt' => 'DESC']);
 
         return $this->render('homepage.html.twig', [
             'pullRequests' => $pullRequests,
         ]);
-    }
-
-    /**
-     * @Route("/debug", name="debug")
-     *
-     * @return Response
-     */
-    public function debug(MergeCommitImporter $importer)
-    {
-        $importer->importAllPullRequest();
-
-        die('p');
     }
 }
