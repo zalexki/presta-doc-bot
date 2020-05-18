@@ -22,7 +22,7 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="navbar-brand">
                     <img height="80px" src="{{ asset('images/prestashop-puffy.png') }}" alt="puffy mascot prestashop">
-                    {{ 'navbar.title'|trans }}
+                    <a href="https://github.com/PrestaShop/docs/pulls">{{ 'navbar.title'|trans }}</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
                 <div id="navbarToggler" class="navbar-right collapse navbar-collapse">
                     <div class="navbar-nav d-flex flex-row-reverse">
                         <div class="nav-item">
-                            <a href="{{ path('index') }}" class="nav-link {% if app.request.get('_route') == 'index' %}active{% endif %}"> 
+                            <a href="{{ path('index') }}" class="nav-link {% if app.request.get('_route') == 'index' %}active{% endif %}">
                                 {{ 'navbar.closed_pull_requests'|trans }}
                             </a>
                         </div>
